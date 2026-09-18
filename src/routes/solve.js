@@ -10,6 +10,7 @@ const { solveAliyun } = require('../services/aliyun');
 const { extractAliyunParams } = require('../services/extractAliyun');
 const { solveCloudflare } = require('../services/cloudflare');
 const { getSitekey } = require('../services/getSitekey');
+const { KasadaSolver } = require('../services/kasada.js');
 
 const requestCounts = new Map();
 const MAX_REQUESTS = parseInt(process.env.MAX_REQUESTS_PER_MINUTE) || 5;
@@ -73,6 +74,36 @@ router.post('/turnstile', async (req, res) => {
   } finally {
     if (browserService) {
       await browserService.shutdown();
+    }
+  }
+});
+
+router.post('/kasada', async (req, res) => {
+  const startTime = Date.now();
+  let solver = null;
+
+  try {
+    const { url } = req.body;
+
+    if (!url) {
+      return res.status(400).json({ success: false, error: 'url is required' });
+    }
+
+    solver = new KasadaSolver();
+    await solver.initialize();
+    const result = await solver.solve(url);
+
+    res.json(result);
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      duration: parseFloat(((Date.now() - startTime) / 1000).toFixed(2))
+    });
+  } finally {
+    if (solver) {
+      await solver.cleanup();
     }
   }
 });
