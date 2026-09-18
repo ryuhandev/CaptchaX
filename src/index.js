@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
   res.json({
     name: 'Captcha Solver JS',
     version: '5.1.1',
+    browser: require('./services/browserLock').browserSlotStatus(),
     endpoints: {
       'POST /api/turnstile': 'Solve Turnstile (min, fake page, optional action)',
       'POST /api/turnstile-max': 'Solve Turnstile on real page URL',
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
       'POST /api/aliyun': 'Solve Aliyun Captcha 2.0 (sceneId+prefix, best-effort)',
       'POST /api/aliyun-extract': 'Extract Aliyun sceneId+prefix+region from target page URL',
       'POST /api/cloudflare': 'Bypass Cloudflare challenge (cf_clearance)',
+      'POST /api/kasada': 'Capture Kasada PoW headers+cookies (x-kpsdk-ct/cd, best-effort)',
       'POST /api/waf-session': 'Get WAF session cookies + headers',
       'POST /api/source': 'Get rendered page HTML source',
       'POST /api/get-sitekey': 'Detect & classify captcha sitekeys from a target URL (turnstile/recaptcha/hcaptcha/friendly/altcha)',

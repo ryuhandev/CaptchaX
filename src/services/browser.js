@@ -8,13 +8,13 @@ class BrowserService {
     this.cleanupTimer = null;
     this.isShuttingDown = false;
     this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = 5;
+    this.maxReconnectAttempts = 2;
     this.cleanupInterval = 30000;
     this.contextTimeout = 300000;
     this.contextCreationTimes = new Map();
 
     const cpuCores = os.cpus().length;
-    this.contextLimit = Math.max(cpuCores * 4, 16);
+    this.contextLimit = Math.min(Math.max(cpuCores * 2, 4), 8);
 
     this.stats = {
       totalContexts: 0,
@@ -47,8 +47,8 @@ class BrowserService {
         turnstile: true,
         connectOption: {
           defaultViewport: { width, height },
-          timeout: 120000,
-          protocolTimeout: 300000,
+          timeout: 45000,
+          protocolTimeout: 120000,
           args: [
             `--window-size=${width},${height}`,
             '--no-sandbox',

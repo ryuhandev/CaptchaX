@@ -11,9 +11,42 @@ const { extractAliyunParams } = require('../services/extractAliyun');
 const { solveCloudflare } = require('../services/cloudflare');
 const { getSitekey } = require('../services/getSitekey');
 const { KasadaSolver } = require('../services/kasada.js');
+const { solveKasada } = require('../services/kasada.js');
+const { acquireSlot, releaseSlot } = require('../services/browserLock');
 
 const requestCounts = new Map();
 const MAX_REQUESTS = parseInt(process.env.MAX_REQUESTS_PER_MINUTE) || 5;
+const BROWSER_SLOT_WAIT_MS = parseInt(process.env.BROWSER_SLOT_WAIT_MS, 10) || 45000;
+
+// Route yang memakai browser (1 Chrome per solve) wajib antre slot global.
+// Tanpa ini, request paralel = banyak Chrome = OOM di Railway.
+const BROWSER_ROUTES = new Set([
+  '/turnstile', '/turnstile-max', '/hcaptcha', '/aliyun',
+  '/waf-session', '/source', '/cloudflare', '/get-sitekey', '/aliyun-extract',
+  '/kasada',
+]);
+
+router.use(async (req, res, next) => {
+  if (req.method !== 'POST' || !BROWSER_ROUTES.has(req.path)) return next();
+  let got = false;
+  try {
+    got = await acquireSlot(BROWSER_SLOT_WAIT_MS);
+  } catch (e) {
+    got = false;
+  }
+  if (!got) {
+    return res.status(429).json({ success: false, error: 'Browser busy, try again in ~30s' });
+  }
+  let released = false;
+  const done = () => {
+    if (released) return;
+    released = true;
+    releaseSlot();
+  };
+  res.on('finish', done);
+  res.on('close', done);
+  next();
+});
 
 function checkRateLimit(ip) {
   const now = Date.now();
@@ -80,30 +113,56 @@ router.post('/turnstile', async (req, res) => {
 
 router.post('/kasada', async (req, res) => {
   const startTime = Date.now();
-  let solver = null;
+  let browserService = null;
 
   try {
-    const { url } = req.body;
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    if (!checkRateLimit(clientIp)) {
+      return res.status(429).json({ success: false, error: 'Rate limit exceeded' });
+    }
+
+    const { url, timeout, waitTime } = req.body;
 
     if (!url) {
       return res.status(400).json({ success: false, error: 'url is required' });
     }
 
-    solver = new KasadaSolver();
-    await solver.initialize();
-    const result = await solver.solve(url);
+    try {
+      new URL(url);
+    } catch {
+      return res.status(400).json({ success: false, error: 'Invalid url' });
+    }
 
-    res.json(result);
+    browserService = new BrowserService();
+    await browserService.initialize();
 
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      duration: parseFloat(((Date.now() - startTime) / 1000).toFixed(2))
+    const result = await solveKasada({
+      url,
+      timeout: timeout || 30,
+      waitTime: waitTime || 15,
+      browserService,
     });
+
+    if (result.success) {
+      res.json({
+        success: true,
+        headers: result.data.headers,
+        cookies: result.data.cookies,
+        duration: parseFloat((result.duration / 1000).toFixed(2)),
+      });
+    } else {
+      res.json({
+        success: false,
+        error: result.error,
+        duration: parseFloat((result.duration / 1000).toFixed(2)),
+      });
+    }
+  } catch (error) {
+    console.error('[kasada] Error:', error.message);
+    res.status(500).json({ success: false, error: error.message });
   } finally {
-    if (solver) {
-      await solver.cleanup();
+    if (browserService) {
+      await browserService.shutdown();
     }
   }
 });
