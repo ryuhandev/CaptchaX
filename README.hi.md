@@ -39,7 +39,7 @@
 </p>
 
 <p align="center">
-  <a href="README.id.md">🇮🇩 Indonesia</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ja.md">🇯🇵 日本語</a> · <a href="README.zh.md">🇨🇳 中文</a> · <a href="README.ru.md">🇷🇺 Русский</a> · 🇮🇳 हिन्दी
+  <a href="README.md">Indonesia</a> · <a href="README.en.md">English</a> · <a href="README.ja.md">日本語</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · हिन्दी
 </p>
 
 ---
@@ -184,7 +184,7 @@ CapMonster-स्टाइल Aliyun Captcha 2.0: टारगेट साइ�
 
 ### `POST /api/aliyun-extract`
 
-टारगेट पेज URL से `region`, `prefix`, `sceneId` ऑटो-डिटेक्ट करता है। बेस्ट-एफर्ट, क्योंकि कैप्चा आमतौर पर लॉगिन क्लिक जैसी कार्रवाई के बाद लोड होता है — वही URL दें जिससे कैप्चा ट्रिगर हो।
+टारगेट पेज URL से `region`, `prefix`, `sceneId` ऑटो-डिटेक्ट करता है। बेस्ट-एफर्ट, क्योंकि कैप्चा आमतौर पर लॉगिन क्लिक जैसी कार्रवाई के बाद लोड होता है - वही URL दें जिससे कैप्चा ट्रिगर हो।
 
 ```json
 { "url": "https://example.com/login", "timeout": 30 }
@@ -335,7 +335,7 @@ CaptchaX/
 
 | [![ryuhandev](https://github.com/ryuhandev.png?size=100)](https://github.com/ryuhandev) | [![hazeloffc](https://github.com/hazeloffc.png?size=100)](https://github.com/hazeloffc) |
 |---|---|
-| **[@ryuhandev](https://github.com/ryuhandev)** — ओनर व मेंटेनर | **[@hazeloffc](https://github.com/hazeloffc)** — Kasada सॉल्वर (PR #1) |
+| **[@ryuhandev](https://github.com/ryuhandev)** - ओनर व मेंटेनर | **[@hazeloffc](https://github.com/hazeloffc)** - Kasada सॉल्वर (PR #1) |
 
 ## लाइसेंस और अस्वीकरण
 

@@ -39,7 +39,7 @@
 </p>
 
 <p align="center">
-  <a href="README.id.md">🇮🇩 Indonesia</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ja.md">🇯🇵 日本語</a> · 🇨🇳 中文 · <a href="README.ru.md">🇷🇺 Русский</a> · <a href="README.hi.md">🇮🇳 हिन्दी</a>
+  <a href="README.md">Indonesia</a> · <a href="README.en.md">English</a> · <a href="README.ja.md">日本語</a> · 中文 · <a href="README.ru.md">Русский</a> · <a href="README.hi.md">हिन्दी</a>
 </p>
 
 ---
@@ -335,7 +335,7 @@ Bug 反馈请附接口、脱敏载荷、`error` 响应、Node 版本与部署平
 
 | [![ryuhandev](https://github.com/ryuhandev.png?size=100)](https://github.com/ryuhandev) | [![hazeloffc](https://github.com/hazeloffc.png?size=100)](https://github.com/hazeloffc) |
 |---|---|
-| **[@ryuhandev](https://github.com/ryuhandev)** — 作者与维护者 | **[@hazeloffc](https://github.com/hazeloffc)** — Kasada 求解器 (PR #1) |
+| **[@ryuhandev](https://github.com/ryuhandev)** - 作者与维护者 | **[@hazeloffc](https://github.com/hazeloffc)** - Kasada 求解器 (PR #1) |
 
 ## 许可与免责
 

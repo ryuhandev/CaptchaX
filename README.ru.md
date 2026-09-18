@@ -39,14 +39,14 @@
 </p>
 
 <p align="center">
-  <a href="README.id.md">🇮🇩 Indonesia</a> · <a href="README.en.md">🇬🇧 English</a> · <a href="README.ja.md">🇯🇵 日本語</a> · <a href="README.zh.md">🇨🇳 中文</a> · 🇷🇺 Русский · <a href="README.hi.md">🇮🇳 हिन्दी</a>
+  <a href="README.md">Indonesia</a> · <a href="README.en.md">English</a> · <a href="README.ja.md">日本語</a> · <a href="README.zh.md">中文</a> · Русский · <a href="README.hi.md">हिन्दी</a>
 </p>
 
 ---
 
 ## Обзор
 
-CaptchaX — это единый REST API для решения и обхода широкого спектра капч и антибот-защит: **Cloudflare Turnstile**, **Cloudflare challenge / WAF**, **Kasada PoW**, **reCAPTCHA v3**, **hCaptcha**, **Aliyun Captcha 2.0**, **FriendlyCaptcha**, **Altcha (proof-of-work)**, а также получение **отрендеренного исходника страницы** и **автоматический детектор sitekey**.
+CaptchaX - это единый REST API для решения и обхода широкого спектра капч и антибот-защит: **Cloudflare Turnstile**, **Cloudflare challenge / WAF**, **Kasada PoW**, **reCAPTCHA v3**, **hCaptcha**, **Aliyun Captcha 2.0**, **FriendlyCaptcha**, **Altcha (proof-of-work)**, а также получение **отрендеренного исходника страницы** и **автоматический детектор sitekey**.
 
 Всё работает в одном процессе Express. Headful-браузер (Puppeteer через `puppeteer-real-browser`) используется только теми эндпоинтами, которым он действительно нужен. Сервис готов к деплою на Railway и Docker.
 
@@ -180,7 +180,7 @@ Aliyun Captcha 2.0 в стиле CapMonster: виджет рендерится �
 { "sceneId": "XXXX", "prefix": "xxxxxx", "region": "sgp", "timeout": 120 }
 ```
 
-Где взять параметры: `prefix` — поддомен `https://<prefix>.captcha-open.*.aliyuncs.com` на вкладке Network; `sceneId` — из payload запроса в момент появления капчи; `region` — `sgp` или `cn` (при ошибке init solver сам пробует другой регион). Опционально: `language`, `mode`, `sdkUrl`, `debug`. Ошибка init (`INIT_FAIL`) означает неверные параметры или неактивную сцену — solver отвечает честно, не дожидаясь таймаута. В ответе `verifyParam`: одноразовый токен, привязанный к сессии, верифицировать нужно с того же IP. Icon-click не поддерживается.
+Где взять параметры: `prefix` - поддомен `https://<prefix>.captcha-open.*.aliyuncs.com` на вкладке Network; `sceneId` - из payload запроса в момент появления капчи; `region` - `sgp` или `cn` (при ошибке init solver сам пробует другой регион). Опционально: `language`, `mode`, `sdkUrl`, `debug`. Ошибка init (`INIT_FAIL`) означает неверные параметры или неактивную сцену - solver отвечает честно, не дожидаясь таймаута. В ответе `verifyParam`: одноразовый токен, привязанный к сессии, верифицировать нужно с того же IP. Icon-click не поддерживается.
 
 ### `POST /api/aliyun-extract`
 
@@ -209,7 +209,7 @@ Aliyun Captcha 2.0 в стиле CapMonster: виджет рендерится �
 }
 ```
 
-Если цель не использует Kasada — честный `success: false` с причиной.
+Если цель не использует Kasada, API отвечает честным `success: false` с указанием причины.
 
 ### `POST /api/cloudflare`
 
@@ -289,10 +289,10 @@ CaptchaX/
 ## Лимиты и ресурсы
 
 - Лимит по умолчанию: **5 запросов в минуту с IP** (`MAX_REQUESTS_PER_MINUTE`).
-- Глобальная очередь браузера: **1 solve за раз**. Остальные ждут до `BROWSER_SLOT_WAIT_MS` (по умолчанию 45 с), дальше — `Browser busy`.
-- Браузерным эндпоинтам нужен Chromium — минимум **1 ГБ RAM**. Небраузерные (`captchav3`, `altcha`, `friendly`) лёгкие.
+- Глобальная очередь браузера: **только 1 задача за раз**. Остальные ждут до `BROWSER_SLOT_WAIT_MS` (по умолчанию 45 с), затем получают `Browser busy`.
+- Браузерным эндпоинтам нужен Chromium, минимум **1 ГБ RAM**. Небраузерные (`captchav3`, `altcha`, `friendly`) лёгкие.
 - Xvfb управляется внутри `puppeteer-real-browser`.
-- Все ошибки — машиночитаемые HTTP-статусы + JSON.
+- Все ошибки возвращаются в виде машиночитаемых HTTP-статусов и JSON.
 
 ## FAQ
 
@@ -304,7 +304,7 @@ CaptchaX/
 
 **Можно ли с другого IP?** Не рекомендуется. Aliyun требует верификации с того же IP (привязка к сессии).
 
-**Почему OOM на Railway?** Chromium прожорлив. Поднимите план и не дёргайте браузерные эндпоинты пачкой — очередь теперь отвечает `Browser busy` вместо pile-up процессов.
+**Почему OOM на Railway?** Chromium требует много памяти. Поднимите тариф и не вызывайте браузерные эндпоинты массово параллельно: очередь теперь отвечает `Browser busy` вместо запуска множества процессов Chrome.
 
 **Icon-click Aliyun?** Не поддерживается, ответ `success: false`.
 
@@ -335,12 +335,12 @@ CaptchaX/
 
 | [![ryuhandev](https://github.com/ryuhandev.png?size=100)](https://github.com/ryuhandev) | [![hazeloffc](https://github.com/hazeloffc.png?size=100)](https://github.com/hazeloffc) |
 |---|---|
-| **[@ryuhandev](https://github.com/ryuhandev)** — владелец и мейнтейнер | **[@hazeloffc](https://github.com/hazeloffc)** — Kasada-солвер (PR #1) |
+| **[@ryuhandev](https://github.com/ryuhandev)** - владелец и мейнтейнер | **[@hazeloffc](https://github.com/hazeloffc)** - Kasada-солвер (PR #1) |
 
 ## Лицензия и дисклеймер
 
 Распространяется под **Apache License 2.0**. См. [LICENSE](https://github.com/ryuhandev/CaptchaX/blob/main/LICENSE).
 
-Проект предназначен для исследований безопасности, автотестов собственных систем и легитимных интеграций. Обход капч на чужих сервисах без разрешения может нарушать закон и ToS провайдеров. Ответственность за использование — на вас.
+Проект предназначен для исследований безопасности, автотестов собственных систем и легитимных интеграций. Обход капч на чужих сервисах без разрешения может нарушать закон и ToS провайдеров. Ответственность за использование - на вас.
 
 Мейнтейнер: [@ryuhandev](https://github.com/ryuhandev).

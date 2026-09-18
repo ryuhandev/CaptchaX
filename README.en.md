@@ -39,7 +39,7 @@
 </p>
 
 <p align="center">
-  <a href="README.id.md">🇮🇩 Indonesia</a> · 🇬🇧 English · <a href="README.ja.md">🇯🇵 日本語</a> · <a href="README.zh.md">🇨🇳 中文</a> · <a href="README.ru.md">🇷🇺 Русский</a> · <a href="README.hi.md">🇮🇳 हिन्दी</a>
+  <a href="README.md">Indonesia</a> · English · <a href="README.ja.md">日本語</a> · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.hi.md">हिन्दी</a>
 </p>
 
 ---
@@ -237,7 +237,7 @@ How to get the parameters: `prefix` is the subdomain of `https://<prefix>.captch
 
 ### `POST /api/aliyun-extract`
 
-Auto-detects `region`, `prefix`, and `sceneId` from a target page URL. Best-effort, because captchas usually load only after an action such as clicking Login — use a URL that actually triggers the captcha.
+Auto-detects `region`, `prefix`, and `sceneId` from a target page URL. Best-effort, because captchas usually load only after an action such as clicking Login - use a URL that actually triggers the captcha.
 
 ```json
 { "url": "https://example.com/login", "timeout": 30 }
@@ -382,7 +382,7 @@ CaptchaX/
 
 **Can tokens be used from a different IP?** Not recommended. Aliyun verification must come from the same IP (session-bound token).
 
-**Why do browser endpoints OOM on Railway?** Chromium needs memory. Upgrade the plan, and avoid heavy parallel calls — the browser queue now answers `Browser busy` instead of stacking Chrome processes.
+**Why do browser endpoints OOM on Railway?** Chromium needs memory. Upgrade the plan, and avoid heavy parallel calls - the browser queue now answers `Browser busy` instead of stacking Chrome processes.
 
 **Is there API authentication?** No built-in key yet. Protect the instance with a proxy, IP allowlist, or your own reverse proxy before exposing it publicly.
 
@@ -417,7 +417,7 @@ Bug reports should include the endpoint, a sanitized payload, the `error` respon
 
 | [![ryuhandev](https://github.com/ryuhandev.png?size=100)](https://github.com/ryuhandev) | [![hazeloffc](https://github.com/hazeloffc.png?size=100)](https://github.com/hazeloffc) |
 |---|---|
-| **[@ryuhandev](https://github.com/ryuhandev)** — Owner & maintainer | **[@hazeloffc](https://github.com/hazeloffc)** — Kasada solver (PR #1) |
+| **[@ryuhandev](https://github.com/ryuhandev)** - Owner & maintainer | **[@hazeloffc](https://github.com/hazeloffc)** - Kasada solver (PR #1) |
 
 ---
 

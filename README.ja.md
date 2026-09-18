@@ -39,7 +39,7 @@
 </p>
 
 <p align="center">
-  <a href="README.id.md">🇮🇩 Indonesia</a> · <a href="README.en.md">🇬🇧 English</a> · 🇯🇵 日本語 · <a href="README.zh.md">🇨🇳 中文</a> · <a href="README.ru.md">🇷🇺 Русский</a> · <a href="README.hi.md">🇮🇳 हिन्दी</a>
+  <a href="README.md">Indonesia</a> · <a href="README.en.md">English</a> · 日本語 · <a href="README.zh.md">中文</a> · <a href="README.ru.md">Русский</a> · <a href="README.hi.md">हिन्दी</a>
 </p>
 
 ---
@@ -335,7 +335,7 @@ CaptchaX/
 
 | [![ryuhandev](https://github.com/ryuhandev.png?size=100)](https://github.com/ryuhandev) | [![hazeloffc](https://github.com/hazeloffc.png?size=100)](https://github.com/hazeloffc) |
 |---|---|
-| **[@ryuhandev](https://github.com/ryuhandev)** — オーナー兼メンテナー | **[@hazeloffc](https://github.com/hazeloffc)** — Kasada ソルバー (PR #1) |
+| **[@ryuhandev](https://github.com/ryuhandev)** - オーナー兼メンテナー | **[@hazeloffc](https://github.com/hazeloffc)** - Kasada ソルバー (PR #1) |
 
 ## ライセンスと免責
 
